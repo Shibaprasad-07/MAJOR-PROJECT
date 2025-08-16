@@ -1,53 +1,45 @@
 const express = require("express");
 const router = express.Router();
-const wrapAsync = require("../utils/wrapAsync.js");
-const { isLoggedIn, isListingAuthor, validateListing } = require('../middleware.js');
-const listingController = require("../controllers/listings.js");
-const multer = require('multer');
-const { storage } = require("../cloudConfig.js");
-const upload = multer({ storage });
-const Listing = require("../models/listing");
+const listings = require("../controllers/listings");
+const catchAsync = require("../utils/catchAsync");
+const { isLoggedIn, isOwner, validateListing } = require("../middleware");
 
-// Routes
-router.route("/")
-    .get(wrapAsync(listingController.index))
-    .post(
-        isLoggedIn,
-        upload.single('listing[image]'),
-        validateListing,
-        wrapAsync(listingController.createListing)
-    );
+const multer = require("multer");
+const { storage } = require("../cloudConfig"); // cloudinary storage
+const upload = multer({ storage }); // Multer config
 
-// NEW ROUTE
-router.get("/new", isLoggedIn, listingController.renderNewForm);
+// All listings
+router.get("/", catchAsync(listings.index));
 
-router.route("/:id")
-    .get(wrapAsync(listingController.showListing))
-    .put(
-        isLoggedIn,
-        isListingAuthor,
-        upload.single('listing[image]'), 
-        wrapAsync(listingController.updateListing)
-    )
-    .delete(isLoggedIn, isListingAuthor, wrapAsync(listingController.destroyListing));
+// New listing form
+router.get("/new", isLoggedIn, listings.renderNewForm);
 
-// EDIT ROUTE
-router.get("/:id/edit", isLoggedIn, isListingAuthor, wrapAsync(listingController.editForm));
+// Create new listing
+router.post(
+  "/",
+  isLoggedIn,
+  upload.single("listing[image]"),
+  validateListing,
+  catchAsync(listings.createListing)
+);
 
-// Filters by category 
-router.get("/category/:category", wrapAsync(async (req, res) => {
-    let { category } = req.params;
-    const search = req.query.q;
-    // Use category 
-    let filter = { category };
-    if (search) {
-        filter.$or = [
-            { title: { $regex: search, $options: 'i' } },
-            { location: { $regex: search, $options: 'i' } }
-        ];
-    }
-    const listings = await Listing.find(filter);
-    res.render("listings/index.ejs", { allListings: listings, search, category });
-}));
+// Show listing
+router.get("/:id", catchAsync(listings.showListing));
+
+// Edit form
+router.get("/:id/edit", isLoggedIn, isOwner, catchAsync(listings.renderEditForm));
+
+// Update listing
+router.put(
+  "/:id",
+  isLoggedIn,
+  isOwner,
+  upload.single("listing[image]"),
+  validateListing,
+  catchAsync(listings.updateListing)
+);
+
+// Delete listing
+router.delete("/:id", isLoggedIn, isOwner, catchAsync(listings.deleteListing));
 
 module.exports = router;
