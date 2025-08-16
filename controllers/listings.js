@@ -7,9 +7,9 @@ module.exports.index = async (req, res) => {
         let filter = {};
         if (search) {
             filter.$or = [
-                { title: { $regex: search, $options: 'i' } },
-                { location: { $regex: search, $options: 'i' } },
-                { country: { $regex: search, $options: 'i' } }
+                { title: { $regex: search, $options: "i" } },
+                { location: { $regex: search, $options: "i" } },
+                { country: { $regex: search, $options: "i" } }
             ];
         }
         const allListings = await Listing.find(filter);
@@ -21,12 +21,12 @@ module.exports.index = async (req, res) => {
     }
 };
 
-//new listing form
+// New listing form
 module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
 };
 
-// Show listing
+// Show single listing
 module.exports.showListing = async (req, res) => {
     try {
         const { id } = req.params;
@@ -35,14 +35,17 @@ module.exports.showListing = async (req, res) => {
                 path: "reviews",
                 populate: { path: "author" }
             })
-            .populate("owner");
+            .populate("owner"); // ✅ populate owner so username is available
 
         if (!listing) {
             req.flash("error", "Listing not found!");
             return res.redirect("/listings");
         }
 
-        res.render("listings/show.ejs", { listing, currUser: req.user || null });
+        res.render("listings/show.ejs", {
+            listing,
+            currUser: req.user || null
+        });
     } catch (err) {
         console.error(err);
         req.flash("error", "Unable to load listing details.");
@@ -54,13 +57,15 @@ module.exports.showListing = async (req, res) => {
 module.exports.createListing = async (req, res) => {
     try {
         const newListing = new Listing(req.body.listing);
-        newListing.owner = req.user._id;
+        newListing.owner = req.user._id; // ✅ set current user as owner
+
         if (req.file) {
             newListing.image = {
                 url: req.file.path,
                 filename: req.file.filename
             };
         }
+
         await newListing.save();
         req.flash("success", "Successfully created a new listing!");
         res.redirect("/listings");
@@ -71,7 +76,7 @@ module.exports.createListing = async (req, res) => {
     }
 };
 
-//edit form
+// Edit form
 module.exports.editForm = async (req, res) => {
     try {
         const { id } = req.params;
@@ -104,14 +109,13 @@ module.exports.updateListing = async (req, res) => {
         // Update fields
         Object.assign(listing, req.body.listing);
 
-        //new file upload
-        if (typeof req.file !== "undefined") {
+        // If new file uploaded
+        if (req.file) {
             listing.image = {
                 url: req.file.path,
                 filename: req.file.filename
             };
         }
-        // If no file uploaded
 
         await listing.save();
         req.flash("success", "Listing Updated");
