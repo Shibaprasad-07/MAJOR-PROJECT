@@ -35,7 +35,7 @@ module.exports.showListing = async (req, res) => {
                 path: "reviews",
                 populate: { path: "author" }
             })
-            .populate("owner"); // ✅ populate owner so username is available
+            .populate("owner");
 
         if (!listing) {
             req.flash("error", "Listing not found!");
@@ -56,22 +56,29 @@ module.exports.showListing = async (req, res) => {
 // Create new listing
 module.exports.createListing = async (req, res) => {
     try {
-        const newListing = new Listing(req.body.listing);
-        newListing.owner = req.user._id; // ✅ set current user as owner
+        if (!req.body.listing) {
+            throw new Error("Listing data is missing. Please fill out the form correctly.");
+        }
 
+        const newListing = new Listing(req.body.listing);
+        if (!req.user) {
+            throw new Error("You must be logged in to create a listing.");
+        }
+        newListing.owner = req.user._id;
         if (req.file) {
             newListing.image = {
                 url: req.file.path,
                 filename: req.file.filename
             };
         }
-
         await newListing.save();
-        req.flash("success", "Successfully created a new listing!");
+
+        req.flash("success", "✅ Successfully created a new listing!");
         res.redirect("/listings");
     } catch (err) {
         console.error(err);
-        req.flash("error", "Failed to create listing. Please try again.");
+
+        req.flash("error",`${err.message}`);
         res.redirect("/listings/new");
     }
 };

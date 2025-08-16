@@ -9,7 +9,7 @@
       <div class="alert alert-danger"><%= error %></div>
     <% } %>
 
-  <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data" novalidate class="needs-validation">
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data" novalidate class="needs-validation">
 
       <!-- Title -->
       <div class="mb-3">
@@ -89,4 +89,7 @@
 
       <br/>
       <button class="btn btn-dark edit-btn" type="submit">Update</button>
-      <br><br
+      <br><br>
+    </form>
+  </div>
+</div>
