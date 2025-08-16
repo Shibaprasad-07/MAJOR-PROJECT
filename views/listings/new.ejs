@@ -1,0 +1,122 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<div class="hero-section text-center py-5 mb-4" style="background: linear-gradient(90deg, #f8fafc 60%, #e0e7ff 100%); border-radius: 1.5rem; box-shadow: 0 2px 16px rgba(0,0,0,0.07);">
+  <h1 style="font-family: 'Montserrat', 'Poppins', sans-serif; font-weight: 800; font-size: 2.7rem; color: #2d3748; letter-spacing: 2px;">
+    <span style="color: #4f46e5;">WanderLust</span>: Your Home
+  </h1>
+  <p style="font-size: 1.2rem; color: #4b5563; margin-top: 0.5rem;">Add your property and share your adventure with the world.</p>
+</div>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <br><br>
+    <h3 class="mb-4">Create a New Listing</h3>
+
+    <!-- Error message -->
+    <% if (error && error.length > 0) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <!-- Form -->
+    <form method="POST" action="/listings" 
+          enctype="multipart/form-data" 
+          novalidate 
+          class="needs-validation shadow p-4 rounded bg-light">
+
+      <!-- Title -->
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input id="title" name="listing[title]" placeholder="Add a catchy title" 
+               type="text" class="form-control" required autofocus />
+        <div class="valid-feedback">Title looks good!</div>
+        <div class="invalid-feedback">Please enter a title</div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="listing[description]" 
+                  class="form-control" placeholder="Describe your property..." required></textarea>
+        <div class="valid-feedback">Description looks good!</div>
+        <div class="invalid-feedback">Please enter a short description</div>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload image</label>
+        <input id="image" name="listing[image]" 
+               type="file" class="form-control" accept="image/*" required />
+        <div class="form-text">Only image files are allowed.</div>
+      </div>
+
+
+      <!-- Category -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select id="category" name="listing[category]" class="form-control" required>
+          <option value="">Select a category</option>
+          <option value="trending">Trending</option>
+          <option value="rooms">Rooms</option>
+          <option value="iconic-cities">Iconic Cities</option>
+          <option value="mountains">Mountains</option>
+          <option value="castles">Castles</option>
+          <option value="amazing-pools">Amazing Pools</option>
+          <option value="camping">Camping</option>
+          <option value="farms">Farms</option>
+          <option value="arctic">Arctic</option>
+        </select>
+        <div class="valid-feedback">Category looks good!</div>
+        <div class="invalid-feedback">Please select a category</div>
+      </div>
+
+      <!-- Price & Country -->
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price" class="form-label">Price</label>
+          <input id="price" name="listing[price]" placeholder="1200" 
+                 type="number" class="form-control" min="0" required />
+          <div class="valid-feedback">Price looks good!</div>
+          <div class="invalid-feedback">Price should be valid</div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="country" class="form-label">Country</label>
+          <input id="country" name="listing[country]" placeholder="India" 
+                 type="text" class="form-control" required />
+          <div class="valid-feedback">Country looks good!</div>
+          <div class="invalid-feedback">Country name should be valid</div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input id="location" name="listing[location]" placeholder="Jaipur, Rajasthan" 
+               type="text" class="form-control" required />
+        <div class="valid-feedback">Location looks good!</div>
+        <div class="invalid-feedback">Location should be valid</div>
+      </div>
+
+      <div class="d-grid gap-2 mt-4">
+        <button class="btn btn-dark add-btn" type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Bootstrap validation script -->
+<script>
+(() => {
+  'use strict';
+  const forms = document.querySelectorAll('.needs-validation');
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  });
+})();
+</script>
