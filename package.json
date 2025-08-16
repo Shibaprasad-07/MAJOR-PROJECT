@@ -2,14 +2,14 @@
    "engines": {
       "node": "23.0.0"
    },
-
    "$schema": "https://json.schemastore.org/package.json",
    "name": "major-project",
    "version": "1.0.0",
    "main": "index.js",
    "scripts": {
       "start": "node app.js",
-      "dev": "nodemon app.js"
+      "dev": "nodemon app.js",
+      "seed": "node init/index.js"
    },
    "keywords": [],
    "author": "Skanha",

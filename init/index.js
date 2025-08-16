@@ -1,30 +1,22 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.ATLASDB_URL;
 
-main()
-  .then(() => {
-    console.log("connected to DB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+(async () => {
+  try {
+    await mongoose.connect(MONGO_URL);
+    console.log("Connected to DB");
 
-async function main() {
-  await mongoose.connect(MONGO_URL);
-}
+    await Listing.deleteMany({});
+    await Listing.insertMany(initData.data);
 
-const initDB = async () => {
-  await Listing.deleteMany({}); 
-  initData.data = initData.data.map((obj) => ({
-    ...obj,
-    owner: "6867e4f985862da7a2d20468",
-  }));
-  await Listing.insertMany(initData.data);
-  console.log("data was initialized");
-  mongoose.connection.close();
-};
-
-initDB();
+    console.log("Data was initialized");
+  } catch (err) {
+    console.error(err);
+  } finally {
+    mongoose.connection.close();
+  }
+})();
