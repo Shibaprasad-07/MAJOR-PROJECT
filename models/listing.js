@@ -59,7 +59,7 @@ const listingSchema = new Schema({
     "Farms",
     "Arctic"
   ],
-  required: true
+  required:true
 }
 });
 

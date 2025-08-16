@@ -12,7 +12,7 @@ module.exports.index = async (req, res) => {
                 { country: { $regex: search, $options: 'i' } }
             ];
         }
-        const allListings = await Listing.find(filter);
+        const allListings = await Listing.find(filter).populate("owner"); // ✅ populate owner for safety
         res.render("listings/index.ejs", { allListings, search });
     } catch (err) {
         console.error(err);
@@ -26,7 +26,7 @@ module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
 };
 
-// Show a specific listing
+// Show single listing
 module.exports.showListing = async (req, res) => {
     try {
         const { id } = req.params;
@@ -41,7 +41,6 @@ module.exports.showListing = async (req, res) => {
             req.flash("error", "Listing not found!");
             return res.redirect("/listings");
         }
-
         res.render("listings/show.ejs", { listing, currUser: req.user || null });
     } catch (err) {
         console.error(err);
@@ -54,7 +53,9 @@ module.exports.showListing = async (req, res) => {
 module.exports.createListing = async (req, res) => {
     try {
         const newListing = new Listing(req.body.listing);
-        newListing.owner = req.user._id;
+
+
+        newListing.owner = req.user ? req.user._id : null;
 
         if (req.file) {
             newListing.image = {
@@ -77,7 +78,7 @@ module.exports.createListing = async (req, res) => {
 module.exports.editForm = async (req, res) => {
     try {
         const { id } = req.params;
-        const listing = await Listing.findById(id);
+        const listing = await Listing.findById(id).populate("owner");
 
         if (!listing) {
             req.flash("error", "Listing you requested does not exist!");
@@ -92,28 +93,27 @@ module.exports.editForm = async (req, res) => {
     }
 };
 
-// Update listing (preserve old image if none uploaded, update if new file uploaded)
+// Update listing
 module.exports.updateListing = async (req, res) => {
     try {
         const { id } = req.params;
-        const listing = await Listing.findById(id);
+        const listing = await Listing.findById(id).populate("owner");
 
         if (!listing) {
             req.flash("error", "Listing not found!");
             return res.redirect("/listings");
         }
 
-        // Update basic fields
+        // Update fields
         Object.assign(listing, req.body.listing);
 
-        // If a new file is uploaded, replace image, else keep old
-        if (typeof req.file !== "undefined") {
+        // Update image only if new one uploaded
+        if (req.file) {
             listing.image = {
                 url: req.file.path,
                 filename: req.file.filename
             };
         }
-        // If no file uploaded, do not touch image field (preserve old)
 
         await listing.save();
         req.flash("success", "Listing Updated");
