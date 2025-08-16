@@ -13,7 +13,7 @@ const isLoggedIn = (req, res, next) => {
     next();
 };
 
-// Save redirect URL
+// Save redirect URL (after login)
 const saveRedirectUrl = (req, res, next) => {
     if (req.session.redirectUrl) {
         res.locals.redirectUrl = req.session.redirectUrl;
@@ -21,11 +21,11 @@ const saveRedirectUrl = (req, res, next) => {
     next();
 };
 
-// Check listing author
+// Check if current user is listing's owner
 const isListingAuthor = async (req, res, next) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
-
+    
     if (!listing) {
         req.flash("error", "Listing not found!");
         return res.redirect("/listings");
@@ -39,7 +39,7 @@ const isListingAuthor = async (req, res, next) => {
     next();
 };
 
-// Check review author
+// Check if current user is review's author
 const isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
@@ -57,23 +57,26 @@ const isReviewAuthor = async (req, res, next) => {
     next();
 };
 
-// Validate Listing
+// Validate Listing schema (Joi) and handle file uploads
 const validateListing = async (req, res, next) => {
+    // If a file is uploaded, use its Cloudinary URL
     if (req.file) {
-        // If a new file is uploaded, use its Cloudinary path
         req.body.listing.image = req.file.path;
-    } else if (req.method === "PUT" || req.method === "PATCH") {
-        // If updating without new image, keep old one
-        const { id } = req.params;
-        if (id) {
-            const listing = await Listing.findById(id);
-            if (listing && listing.image) {
-                if (!req.body.listing) req.body.listing = {};
-                req.body.listing.image = listing.image;
+    } else {
+        // If no new image is uploaded and this is an update, preserve the existing image
+        if (req.method === "PUT" || req.method === "PATCH") {
+            const { id } = req.params;
+            if (id) {
+                const listing = await Listing.findById(id);
+                if (listing && listing.image) {
+                    if (!req.body.listing) req.body.listing = {};
+                    req.body.listing.image = listing.image;
+                }
             }
         }
     }
 
+    // Allow empty image string in Joi validation for updates
     const { error } = listingSchema.validate(req.body, { allowUnknown: true });
     if (error) {
         const msg = error.details.map(el => el.message).join(", ");
@@ -82,7 +85,7 @@ const validateListing = async (req, res, next) => {
     next();
 };
 
-// Validate Review
+// Validate Review schema (Joi)
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
@@ -92,6 +95,7 @@ const validateReview = (req, res, next) => {
     next();
 };
 
+// Export all middleware
 module.exports = {
     isLoggedIn,
     saveRedirectUrl,

@@ -9,7 +9,7 @@
       <div class="alert alert-danger"><%= error %></div>
     <% } %>
 
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data" novalidate class="needs-validation">
+  <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data" novalidate class="needs-validation">
 
       <!-- Title -->
       <div class="mb-3">
@@ -39,9 +39,9 @@
 
       <!-- Upload New Image -->
       <div class="mb-3">
-        <label for="image" class="form-label">Upload new image (optional)</label>
-        <input id="image" name="image" type="file" class="form-control" accept="image/*" />
-        <div class="form-text">Only image files are allowed. Leave blank to keep current image.
+        <label for="image" class="form-label">Upload New Image (optional)</label>
+        <input id="image" name="listing[image]" type="file" class="form-control" accept="image/*" />
+        <div class="form-text">Leave blank to keep current image. Uploading a new image will replace the old one.</div>
       </div>
 
       <!-- Category -->
@@ -89,7 +89,4 @@
 
       <br/>
       <button class="btn btn-dark edit-btn" type="submit">Update</button>
-      <br><br>
-    </form>
-  </div>
-</div>
+      <br><br
