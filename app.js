@@ -15,17 +15,17 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
+const helmet = require("helmet");
+const compression = require("compression");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
-// const dbUrl = process.env.ATLASDB_URL;
-
-// Connect to MongoDB
+// Connect to MongoDB Atlas or local
 main()
   .then(() => {
     console.log("Connected to DB");
@@ -35,7 +35,10 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 // Set up view engine and middleware
@@ -47,7 +50,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionOptions = {
-  secret: "mysupersecretcode",
+  secret: process.env.SESSION_SECRET || "mysupersecretcode",
   resave: false,
   saveUninitialized: false, // more secure
   cookie: {
@@ -56,6 +59,10 @@ const sessionOptions = {
   },
 };
 
+
+// Production middleware
+app.use(helmet());
+app.use(compression());
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -99,6 +106,7 @@ app.use((err, req, res, next) => {
 });
 
 // START SERVER
-app.listen(8080, () => {
-  console.log("Server is running on port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
