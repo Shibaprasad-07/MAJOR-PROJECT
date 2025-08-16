@@ -24,7 +24,7 @@ const initDB = async () => {
   }));
   await Listing.insertMany(initData.data);
   console.log("data was initialized");
-  mongoose.connection.close(); // <-- closes the connection
+  mongoose.connection.close();
 };
 
 initDB();

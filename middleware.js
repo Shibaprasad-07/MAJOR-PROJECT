@@ -3,7 +3,7 @@ const Review = require("./models/review");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 
-// Check if user is logged in
+//user is logged in
 const isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated || !req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl;
@@ -13,7 +13,7 @@ const isLoggedIn = (req, res, next) => {
     next();
 };
 
-// Save redirect URL (after login)
+// redirect URL
 const saveRedirectUrl = (req, res, next) => {
     if (req.session.redirectUrl) {
         res.locals.redirectUrl = req.session.redirectUrl;
@@ -21,7 +21,7 @@ const saveRedirectUrl = (req, res, next) => {
     next();
 };
 
-// Check if current user is listing's owner
+//user is listing's owner
 const isListingAuthor = async (req, res, next) => {
     const { id } = req.params;
     const listing = await Listing.findById(id);
@@ -39,7 +39,7 @@ const isListingAuthor = async (req, res, next) => {
     next();
 };
 
-// Check if current user is review's author
+//current user is review's author
 const isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
@@ -57,13 +57,13 @@ const isReviewAuthor = async (req, res, next) => {
     next();
 };
 
-// Validate Listing schema (Joi) and handle file uploads
+// Validate Listing schema (Joi)
 const validateListing = async (req, res, next) => {
-    // If a file is uploaded, use its Cloudinary URL
+    //Cloudinary URL
     if (req.file) {
         req.body.listing.image = req.file.path;
     } else {
-        // If no new image is uploaded and this is an update, preserve the existing image
+
         if (req.method === "PUT" || req.method === "PATCH") {
             const { id } = req.params;
             if (id) {
