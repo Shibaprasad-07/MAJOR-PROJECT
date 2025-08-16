@@ -10,16 +10,22 @@ module.exports.createReview = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    // Create review
+    // If no rating is provided or rating is 0, set default to 1
+    let rating = req.body.review.rating;
+    if (!rating || Number(rating) < 1) {
+        rating = 1;
+    }
+
+    // Create review explicitly from form data
     const newReview = new Review({
-        rating: req.body.review.rating,
+        rating,
         comment: req.body.review.comment,
         author: req.user._id
     });
 
     await newReview.save();
 
-    // Add review
+    // Add review to listing
     listing.reviews.push(newReview._id);
     await listing.save();
 
@@ -30,12 +36,12 @@ module.exports.createReview = async (req, res) => {
 module.exports.destroyReview = async (req, res) => {
     const { id, reviewId } = req.params;
 
-    // Remove review
+    // Remove review reference from listing
     await Listing.findByIdAndUpdate(id, {
         $pull: { reviews: reviewId },
     });
 
-    // Deletereview
+    // Delete the actual review document
     await Review.findByIdAndDelete(reviewId);
 
     req.flash("success", "Review deleted!");
