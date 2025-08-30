@@ -11,6 +11,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -48,7 +49,11 @@ app.use(express.static(path.join(__dirname, "public")));
 const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
-  saveUninitialized: false, // more secure
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: MONGO_URL,
+    touchAfter: 24 * 3600 // lazy session update
+  }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     httpOnly: true,
