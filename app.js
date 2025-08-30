@@ -74,6 +74,11 @@ app.use((req, res, next) => {
 });
 
 
+// HOME ROUTE
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 app.get("/test", (req, res) => {
   res.render("test");
 });
