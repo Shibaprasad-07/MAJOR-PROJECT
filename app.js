@@ -21,7 +21,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 
-const MONGO_URL = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 
 // Connect to MongoDB
@@ -103,7 +103,7 @@ app.use((err, req, res, next) => {
 });
 
 // START SERVER
-const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(8080, () => {
+  console.log("Server is running on port 8080");
+  console.log("Visit: http://localhost:8080");
 });
