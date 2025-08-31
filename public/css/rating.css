@@ -49,8 +49,14 @@
 
 .starability-slot > input {
   position: absolute;
-  margin-right: -100%;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
   opacity: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
 }
 
 .starability-slot > input:checked ~ label,
