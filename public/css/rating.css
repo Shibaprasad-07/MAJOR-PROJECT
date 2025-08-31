@@ -1,9 +1,8 @@
 .starability-result {
   position: relative;
-  width: clamp(100px, 15vw, 150px);
-  height: clamp(20px, 3vw, 30px);
+  width: 120px;
+  height: 24px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAA8CAMAAABGivqtAAAAxlBMVEUAAACZmZn2viTHuJ72viOampqampr1viSampr3vySampqdnZ34wiX1vSSampr1vSOZmZmampr1viT2vSOampr2viT2viSampr2viSampr2vyX4vyWbm5v3vSSdnZ32wSadnZ36wCWcnJyZmZn/wSr/2ySampr2vSP2viSZmZn2vSSZmZn2vST2viSampr2viSbm5ubm5uZmZn1vSSampqbm5v2vSWampqampr3vSf5wiT5vyagoKD/xCmkpKT/yCSZmZn1vSO4V2dEAAAAQHRSTlMA+vsG9fO6uqdgRSIi7+3q39XVqZWVgnJyX09HPDw1NTAwKRkYB+jh3L6+srKijY2Ef2lpYllZUU5CKigWFQ4Oneh1twAAAZlJREFUOMuV0mdzAiEQBmDgWq4YTWIvKRqT2Htv8P//VJCTGfYQZnw/3fJ4tyO76KE0m1b2fZu+U/pu4QGlA7N+Up5PIz9d+cmkbSrSNr9seT3GKeNYIyeO5j16S28exY5suK0U/QKmmeCCX6xs22hJLVkitMImxCvEs8EG3SCRCN/ViFPqnq5epIzZ07QJJvkM9Tkz1xnkmXbfSvR7f4H8AtXBkLGj74mMvjM1+VHZpAZ4LM4K/LBWEI9jwP71v1ZEQ6dyvQMf8A/1pmdZnKce/VH1iIsdte4U8VEtY23xOujxtFpWDgKbfjD2YeEhY0OzfjGeLyO/XfnNpAcmcjDwKOXRfU1IyiTRyEkaiz67pb9oJHJb9vVqKfgjLBPyF5Sq9T0KmSUhQmtiQrJGPHVi0DoSabj31G2gW3buHd0pY85lNdcCk8xlNDPXMuSyNiwl+theIb9C7RLIpKvviYy+M6H8qGwSAp6Is19+GP6KxwnggJ/kq6Jht5rnRQA4z9zyRRaXssvyqp5I6Vutv0vkpJaJtnjpz/8B19ytIayazLoAAAAASUVORK5CYII=");
-  background-size: clamp(20px, 3vw, 30px) auto;
   font-size: 0.1em;
   color: transparent;
 }
@@ -12,46 +11,119 @@
   content: ' ';
   position: absolute;
   left: 0;
-  height: clamp(20px, 3vw, 30px);
+  height: 24px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAA8CAMAAABGivqtAAAAxlBMVEUAAACZmZn2viTHuJ72viOampqampr1viSampr3vySampqdnZ34wiX1vSSampr1vSOZmZmampr1viT2vSOampr2viT2viSampr2viSampr2vyX4vyWbm5v3vSSdnZ32wSadnZ36wCWcnJyZmZn/wSr/2ySampr2vSP2viSZmZn2vSSZmZn2vST2viSampr2viSbm5ubm5uZmZn1vSSampqbm5v2vSWampqampr3vSf5wiT5vyagoKD/xCmkpKT/yCSZmZn1vSO4V2dEAAAAQHRSTlMA+vsG9fO6uqdgRSIi7+3q39XVqZWVgnJyX09HPDw1NTAwKRkYB+jh3L6+srKijY2Ef2lpYllZUU5CKigWFQ4Oneh1twAAAZlJREFUOMuV0mdzAiEQBmDgWq4YTWIvKRqT2Htv8P//VJCTGfYQZnw/3fJ4tyO76KE0m1b2fZu+U/pu4QGlA7N+Up5PIz9d+cmkbSrSNr9seT3GKeNYIyeO5j16S28exY5suK0U/QKmmeCCX6xs22hJLVkitMImxCvEs8EG3SCRCN/ViFPqnq5epIzZ07QJJvkM9Tkz1xnkmXbfSvR7f4H8AtXBkLGj74mMvjM1+VHZpAZ4LM4K/LBWEI9jwP71v1ZEQ6dyvQMf8A/1pmdZnKce/VH1iIsdte4U8VEtY23xOujxtFpWDgKbfjD2YeEhY0OzfjGeLyO/XfnNpAcmcjDwKOXRfU1IyiTRyEkaiz67pb9oJHJb9vVqKfgjLBPyF5Sq9T0KmSUhQmtiQrJGPHVi0DoSabj31G2gW3buHd0pY85lNdcCk8xlNDPXMuSyNiwl+theIb9C7RLIpKvviYy+M6H8qGwSAp6Is19+GP6KxwnggJ/kq6Jht5rnRQA4z9zyRRaXssvyqp5I6Vutv0vkpJaJtnjpz/8B19ytIayazLoAAAAASUVORK5CYII=");
-  background-size: clamp(20px, 3vw, 30px) auto;
-  background-position: 0 clamp(-30px, -4.5vw, -20px);
+  background-position: 0 -30px;
 }
 
 .starability-result[data-rating="5"]::after {
-  width: clamp(100px, 15vw, 150px);
+  width: 120px;
 }
 
 .starability-result[data-rating="4"]::after {
-  width: clamp(80px, 12vw, 120px);
+  width: 96px;
 }
 
 .starability-result[data-rating="3"]::after {
-  width: clamp(60px, 9vw, 90px);
+  width: 72px;
 }
 
 .starability-result[data-rating="2"]::after {
-  width: clamp(40px, 6vw, 60px);
+  width: 48px;
 }
 
 .starability-result[data-rating="1"]::after {
-  width: clamp(20px, 3vw, 30px);
+  width: 24px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
   .starability-result {
-    background-size: clamp(20px, 3vw, 30px) auto;
+    background-size: 24px auto;
   }
   .starability-result:after {
-    background-size: clamp(20px, 3vw, 30px) auto;
+    background-size: 24px auto;
+  }
+}
+
+/* Mobile phones like Vivo T1 5G */
+@media (max-width: 480px) {
+  .starability-result {
+    width: 100px;
+    height: 20px;
+    background-size: 20px auto;
+  }
+  
+  .starability-result:after {
+    height: 20px;
+    background-size: 20px auto;
+  }
+  
+  .starability-result[data-rating="5"]::after {
+    width: 100px;
+  }
+  
+  .starability-result[data-rating="4"]::after {
+    width: 80px;
+  }
+  
+  .starability-result[data-rating="3"]::after {
+    width: 60px;
+  }
+  
+  .starability-result[data-rating="2"]::after {
+    width: 40px;
+  }
+  
+  .starability-result[data-rating="1"]::after {
+    width: 20px;
+  }
+  
+  .starability-slot {
+    width: 100px;
+    min-height: 40px;
+  }
+  
+  .starability-slot > label {
+    width: 20px;
+    height: 20px;
+    background-size: 20px auto;
+  }
+  
+  .starability-slot > label::before {
+    height: 20px;
+    background-size: 20px auto;
+  }
+  
+  .starability-slot > label:nth-of-type(5)::before {
+    width: 80px;
+    left: -80px;
+  }
+  
+  .starability-slot > label:nth-of-type(4)::before {
+    width: 60px;
+    left: -60px;
+  }
+  
+  .starability-slot > label:nth-of-type(3)::before {
+    width: 40px;
+    left: -40px;
+  }
+  
+  .starability-slot > label:nth-of-type(2)::before {
+    width: 20px;
+    left: -20px;
+  }
+  
+  .starability-slot .starability-focus-ring {
+    height: 20px;
   }
 }
 
 .starability-slot {
   display: block;
   position: relative;
-  width: clamp(100px, 15vw, 150px);
-  min-height: clamp(40px, 6vw, 60px);
+  width: 120px;
+  min-height: 48px;
   padding: 0;
   border: none;
 }
@@ -96,7 +168,7 @@
   position: absolute;
   left: 0;
   width: 100%;
-  height: clamp(20px, 3vw, 30px);
+  height: 24px;
   outline: 2px dotted #999;
   pointer-events: none;
   opacity: 0;
@@ -110,47 +182,45 @@
   position: relative;
   display: inline-block;
   float: left;
-  width: clamp(20px, 3vw, 30px);
-  height: clamp(20px, 3vw, 30px);
+  width: 24px;
+  height: 24px;
   font-size: 0.1em;
   color: transparent;
   cursor: pointer;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAA8CAMAAABGivqtAAAAxlBMVEUAAACZmZn2viTHuJ72viOampqampr1viSampr3vySampqdnZ34wiX1vSSampr1vSOZmZmampr1viT2vSOampr2viT2viSampr2viSampr2vyX4vyWbm5v3vSSdnZ32wSadnZ36wCWcnJyZmZn/wSr/2ySampr2vSP2viSZmZn2vSSZmZn2vST2viSampr2viSbm5ubm5uZmZn1vSSampqbm5v2vSWampqampr3vSf5wiT5vyagoKD/xCmkpKT/yCSZmZn1vSO4V2dEAAAAQHRSTlMA+vsG9fO6uqdgRSIi7+3q39XVqZWVgnJyX09HPDw1NTAwKRkYB+jh3L6+srKijY2Ef2lpYllZUU5CKigWFQ4Oneh1twAAAZlJREFUOMuV0mdzAiEQBmDgWq4YTWIvKRqT2Htv8P//VJCTGfYQZnw/3fJ4tyO76KE0m1b2fZu+U/pu4QGlA7N+Up5PIz9d+cmkbSrSNr9seT3GKeNYIyeO5j16S28exY5suK0U/QKmmeCCX6xs22hJLVkitMImxCvEs8EG3SCRCN/ViFPqnq5epIzZ07QJJvkM9Tkz1xnkmXbfSvR7f4H8AtXBkLGj74mMvjM1+VHZpAZ4LM4K/LBWEI9jwP71v1ZEQ6dyvQMf8A/1pmdZnKce/VH1iIsdte4U8VEtY23xOujxtFpWDgKbfjD2YeEhY0OzfjGeLyO/XfnNpAcmcjDwKOXRfU1IyiTRyEkaiz67pb9oJHJb9vVqKfgjLBPyF5Sq9T0KmSUhQmtiQrJGPHVi0DoSabj31G2gW3buHd0pY85lNdcCk8xlNDPXMuSyNiwl+theIb9C7RLIpKvviYy+M6H8qGwSAp6Is19+GP6KxwnggJ/kq6Jht5rnRQA4z9zyRRaXssvyqp5I6Vutv0vkpJaJtnjpz/8B19ytIayazLoAAAAASUVORK5CYII=");
-  background-size: clamp(20px, 3vw, 30px) auto;
   background-repeat: no-repeat;
-  background-position: 0 clamp(-30px, -4.5vw, -20px);
+  background-position: 0 -30px;
 }
 
 .starability-slot > label::before {
   content: '';
   position: absolute;
   display: block;
-  height: clamp(20px, 3vw, 30px);
+  height: 24px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAA8CAMAAABGivqtAAAAxlBMVEUAAACZmZn2viTHuJ72viOampqampr1viSampr3vySampqdnZ34wiX1vSSampr1vSOZmZmampr1viT2vSOampr2viT2viSampr2viSampr2vyX4vyWbm5v3vSSdnZ32wSadnZ36wCWcnJyZmZn/wSr/2ySampr2vSP2viSZmZn2vSSZmZn2vST2viSampr2viSbm5ubm5uZmZn1vSSampqbm5v2vSWampqampr3vSf5wiT5vyagoKD/xCmkpKT/yCSZmZn1vSO4V2dEAAAAQHRSTlMA+vsG9fO6uqdgRSIi7+3q39XVqZWVgnJyX09HPDw1NTAwKRkYB+jh3L6+srKijY2Ef2lpYllZUU5CKigWFQ4Oneh1twAAAZlJREFUOMuV0mdzAiEQBmDgWq4YTWIvKRqT2Htv8P//VJCTGfYQZnw/3fJ4tyO76KE0m1b2fZu+U/pu4QGlA7N+Up5PIz9d+cmkbSrSNr9seT3GKeNYIyeO5j16S28exY5suK0U/QKmmeCCX6xs22hJLVkitMImxCvEs8EG3SCRCN/ViFPqnq5epIzZ07QJJvkM9Tkz1xnkmXbfSvR7f4H8AtXBkLGj74mMvjM1+VHZpAZ4LM4K/LBWEI9jwP71v1ZEQ6dyvQMf8A/1pmdZnKce/VH1iIsdte4U8VEtY23xOujxtFpWDgKbfjD2YeEhY0OzfjGeLyO/XfnNpAcmcjDwKOXRfU1IyiTRyEkaiz67pb9oJHJb9vVqKfgjLBPyF5Sq9T0KmSUhQmtiQrJGPHVi0DoSabj31G2gW3buHd0pY85lNdcCk8xlNDPXMuSyNiwl+theIb9C7RLIpKvviYy+M6H8qGwSAp6Is19+GP6KxwnggJ/kq6Jht5rnRQA4z9zyRRaXssvyqp5I6Vutv0vkpJaJtnjpz/8B19ytIayazLoAAAAASUVORK5CYII=");
-  background-size: clamp(20px, 3vw, 30px) auto;
-  background-position: 0 clamp(30px, 4.5vw, 20px);
+  background-position: 0 30px;
   pointer-events: none;
   opacity: 0;
 }
 
 .starability-slot > label:nth-of-type(5)::before {
-  width: clamp(80px, 12vw, 120px);
-  left: clamp(-80px, -12vw, -120px);
+  width: 96px;
+  left: -96px;
 }
 
 .starability-slot > label:nth-of-type(4)::before {
-  width: clamp(60px, 9vw, 90px);
-  left: clamp(-60px, -9vw, -90px);
+  width: 72px;
+  left: -72px;
 }
 
 .starability-slot > label:nth-of-type(3)::before {
-  width: clamp(40px, 6vw, 60px);
-  left: clamp(-40px, -6vw, -60px);
+  width: 48px;
+  left: -48px;
 }
 
 .starability-slot > label:nth-of-type(2)::before {
-  width: clamp(20px, 3vw, 30px);
-  left: clamp(-20px, -3vw, -30px);
+  width: 24px;
+  left: -24px;
 }
 
 .starability-slot > label:nth-of-type(1)::before {
