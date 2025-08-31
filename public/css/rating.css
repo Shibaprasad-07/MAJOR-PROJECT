@@ -155,3 +155,98 @@
   -webkit-transition: background-position .7s;
   transition: background-position .7s;
 }
+
+/* Desktop and Laptop */
+@media (min-width: 768px) {
+  .starability-result {
+    width: 150px;
+    height: 30px;
+    background-size: 30px auto;
+  }
+  
+  .starability-result:after {
+    height: 30px;
+    background-size: 30px auto;
+    background-position: 0 -30px;
+  }
+  
+  .starability-result[data-rating="5"]::after {
+    width: 150px;
+  }
+  
+  .starability-result[data-rating="4"]::after {
+    width: 120px;
+  }
+  
+  .starability-result[data-rating="3"]::after {
+    width: 90px;
+  }
+  
+  .starability-result[data-rating="2"]::after {
+    width: 60px;
+  }
+  
+  .starability-result[data-rating="1"]::after {
+    width: 30px;
+  }
+  
+  .starability-slot {
+    width: 150px;
+    min-height: 60px;
+  }
+  
+  .starability-slot > label {
+    width: 30px;
+    height: 30px;
+    background-size: 30px auto;
+    background-position: 0 -30px;
+  }
+  
+  .starability-slot > label::before {
+    height: 30px;
+    background-size: 30px auto;
+    background-position: 0 30px;
+  }
+  
+  .starability-slot > label:nth-of-type(5)::before {
+    width: 120px;
+    left: -120px;
+  }
+  
+  .starability-slot > label:nth-of-type(4)::before {
+    width: 90px;
+    left: -90px;
+  }
+  
+  .starability-slot > label:nth-of-type(3)::before {
+    width: 60px;
+    left: -60px;
+  }
+  
+  .starability-slot > label:nth-of-type(2)::before {
+    width: 30px;
+    left: -30px;
+  }
+  
+  .starability-slot .starability-focus-ring {
+    height: 30px;
+  }
+  
+  .starability-slot > input:checked ~ label,
+  .starability-slot > input:focus ~ label {
+    background-position: 0 0;
+  }
+  
+  .starability-slot > input:checked + label,
+  .starability-slot > input:focus + label {
+    background-position: 0 -30px;
+  }
+  
+  .starability-slot > input:not([disabled]):hover ~ label {
+    background-position: 0 0;
+  }
+  
+  .starability-slot > input:not([disabled]):hover + label {
+    background-position: 0 -30px;
+  }
+}
